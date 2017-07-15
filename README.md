@@ -1,5 +1,5 @@
 # ReverseAPK
-Credit: 1N3@CrowdShield
+Credits: 1N3@CrowdShield
 
 Website: https://crowdshield.com
 
@@ -14,4 +14,6 @@ Quickly analyze and reverse engineer Android applications.
 ```
 
 ## USAGE:
+```
 reverse-apk <apk_name>
+```
