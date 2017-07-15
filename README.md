@@ -1,5 +1,7 @@
-# ReverseAPK v1.0 by 1N3@CrowdShield
-https://crowdshield.com 
+# ReverseAPK
+Credit: 1N3@CrowdShield
+Website: https://crowdshield.com
+Version: 1.0 
 
 ## ABOUT:
 Quickly analyze and reverse engineer Android applications. 
