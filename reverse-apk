@@ -1,0 +1,159 @@
+#!/bin/bash
+# + -- --=[ReverseAPK v1.0 by 1N3 
+# + -- --=[http://crowdshield.com
+# 
+# ABOUT: 
+# Quickly analyze and reverse engineer Android applications.
+#
+# INSTALL: 
+# ./install
+#
+# USAGE:
+# reverseapk <appname.apk>
+#
+OKBLUE='\033[94m'
+OKRED='\033[91m'
+OKGREEN='\033[92m'
+OKORANGE='\033[93m'
+RESET='\e[0m'
+
+echo -e "$OKORANGE                                            "
+echo -e "__________                                        "
+echo -e "\______   \ _______  __ ___________  ______ ____  "
+echo -e " |       _// __ \  \/ // __ \_  __ \/  ___// __ \ "
+echo -e " |    |   \  ___/\   /\  ___/|  | \/\___ \\  ___/ "
+echo -e " |____|_  /\___  >\_/  \___  >__|  /____  >\___  >"
+echo -e "        \/     \/          \/           \/     \/ "
+echo -e "                                           _____ __________ ____  __."
+echo -e "                                          /  _  \\\\______   \    |/ _|"
+echo -e "      --=[( by 1N3@CrowdShield )]=--     /  /_\  \|     ___/      <  "
+echo -e "   --=[( https://crowdshield.com )]=--  /    |    \    |   |    |  \ "
+echo -e "                                        \____|__  /____|   |____|__ \\"
+echo -e "                                                \/                 \/"
+echo -e "$RESET"
+
+echo -e "$OKRED Unpacking APK file..."
+echo -e "$OKRED=====================================================================$RESET"
+unzip $PWD/$1 -d $PWD/$1-unzipped/ 
+baksmali d $PWD/$1-unzipped/classes.dex -o $PWD/$1-unzipped/classes.dex.out/ 2> /dev/null
+
+echo -e "$OKRED Converting APK to Java JAR file..."
+echo -e "$OKRED=====================================================================$RESET"
+d2j-dex2jar $PWD/$1 -o $PWD/$1.jar --force 
+
+echo -e "$OKRED Decompiling using Jadx..."
+echo -e "$OKRED=====================================================================$RESET"
+jadx $PWD/$1 -d $PWD/$1-jadx/ > /dev/null
+
+echo -e "$OKRED Unpacking using APKTool..."
+echo -e "$OKRED=====================================================================$RESET"
+apktool d $PWD/$1 -o $PWD/$1-unpacked/ -f 
+
+echo -e "$OKRED Displaying APK files..."
+echo -e "$OKRED=====================================================================$RESET"
+find $PWD/$1 | egrep 'apk|class' --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Hexdump of classes.dex..."
+echo -e "$OKRED=====================================================================$RESET"
+hexdump -C $PWD/$1-unzipped/classes.dex | head -n 10
+
+echo -e "$OKRED Displaying AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+cat $PWD/$1-unpacked/AndroidManifest.xml
+
+echo -e "$OKRED Analyzing AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'activity|action|intent|android.name|permission' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Analyzing Exports In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'exported="true"' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Analyzing Permissions In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'android.permission' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying content providers..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep 'content://' -R $PWD/$1* --color=auto 2>/dev/null
+
+echo -e "$OKRED Grepping out interesting strings..."
+echo -e "$OKRED=====================================================================$RESET"
+#strings $PWD/$1 | egrep -i 'user|pass|key|login|pwd|log' --color=auto  2>/dev/null
+strings $PWD/$1 > $PWD/$1-strings.txt
+
+#echo -e "$OKRED Displaying all classes and methods..."
+#echo -e "$OKRED=====================================================================$RESET"
+#dexdump -f $PWD/$1-unzipped/classes.dex -l xml | egrep 'class name' --color=auto 2>/dev/null
+#dexdump -f $PWD/$1-unzipped/classes.dex -l xml | egrep 'method name' --color=auto 2>/dev/null
+
+################# URL VULNERABILITIES
+
+echo -e "$OKRED Searching for URL's..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'http:|https:' $a --color=auto 2>/dev/null; done;
+
+################# SQLITE REFERENCES
+
+echo -e "$OKRED Searching for URL's..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'SQLiteDatabase' $a --color=auto 2>/dev/null; done;
+
+################# LOGGING REFERENCES
+
+echo -e "$OKRED Searching for Log.d References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'log\.d' $a --color=auto 2>/dev/null; done;
+
+################# FILE REFERENCES
+
+echo -e "$OKRED Searching for file:// References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'file:\/\/' $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED Searching for getSharedPreferences References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH getSharedPreferences $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED Searching for getExternalStorageDirectory References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -iH getExternalStorageDirectory $a --color=auto 2>/dev/null; done;
+
+################## INTENT REFERENCES
+
+echo -e "$OKRED Searching for android.intent References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -iH android.intent $a --color=auto 2>/dev/null; done;
+
+################# COMMAND EXECUTION REFERENCES
+
+echo -e "$OKRED Searching for command execution references..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'Runtime.getRuntime\(\).exec' $a --color=auto 2>/dev/null; done;
+
+################# SSL REFERENCES
+
+echo -e "$OKRED Searching for client certificates..."
+echo -e "$OKRED=====================================================================$RESET"
+find $PWD/$1-unzipped/ | egrep '\.pkcs|\.p12|\.cer|\.der' --color=auto 2>/dev/null
+
+echo -e "$OKRED Searching for SSL Connections and Pinning..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH getCertificatePinningSSL $a --color=auto 2>/dev/null; done;
+
+################# WEBVIEW REFERENCES
+
+echo -e "$OKRED Searching for WebView Activity..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH WebView $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED Searching for addJavascriptInterface References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH addJavascriptInterface $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED Searching for setJavaScriptEnabled References..."
+echo -e "$OKRED=====================================================================$RESET"
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH setJavaScriptEnabled $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED DONE!"
+echo -e "$OKRED=====================================================================$RESET"
