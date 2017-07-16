@@ -1,5 +1,5 @@
 #!/bin/bash
-# + -- --=[ReverseAPK v1.0 by 1N3 
+# + -- --=[ReverseAPK v1.1 by 1N3 
 # + -- --=[http://crowdshield.com
 # 
 # ABOUT: 
@@ -53,38 +53,45 @@ echo -e "$OKRED Displaying APK files..."
 echo -e "$OKRED=====================================================================$RESET"
 find $PWD/$1 | egrep 'apk|class' --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Hexdump of classes.dex..."
-echo -e "$OKRED=====================================================================$RESET"
-hexdump -C $PWD/$1-unzipped/classes.dex | head -n 10
-
 echo -e "$OKRED Displaying AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 cat $PWD/$1-unpacked/AndroidManifest.xml
 
-echo -e "$OKRED Analyzing AndroidManifest.xml..."
+echo -e "$OKRED Displaying Package Info In AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
-egrep -i 'activity|action|intent|android.name|permission' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+egrep -i 'package=' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Analyzing Exports In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Activities In AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
-egrep -i 'exported="true"' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+egrep -i 'activity ' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Analyzing Permissions In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Services In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'service ' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Content Providers In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'provider' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Broadcast Receivers In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'receiver' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Intent Filter Actions In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'action|category' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Permissions In AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'android.permission' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Checking for Backups Enabled In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Exports In AndroidManifest.xml..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -i 'exported="true"' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
+
+echo -e "$OKRED Displaying Backups In AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'backup' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
-
-echo -e "$OKRED Displaying content providers..."
-echo -e "$OKRED=====================================================================$RESET"
-egrep -nH 'content://' -R $PWD/$1* --color=auto 2>/dev/null
-
-echo -e "$OKRED Grepping out interesting strings..."
-echo -e "$OKRED=====================================================================$RESET"
-strings $PWD/$1 | egrep -i 'user|pass|key|login|pwd|log' --color=auto  2>/dev/null
-strings $PWD/$1 > $PWD/$1-strings.txt
 
 #echo -e "$OKRED Displaying all classes and methods..."
 #echo -e "$OKRED=====================================================================$RESET"
@@ -121,6 +128,12 @@ echo -e "$OKRED Searching for Log.d References..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'log\.d|Log\.' $a --color=auto 2>/dev/null; done;
 
+################# CONTENT PROVIDERS
+
+echo -e "$OKRED Displaying content providers..."
+echo -e "$OKRED=====================================================================$RESET"
+egrep -nH 'content://' -R $PWD/$1* --color=auto 2>/dev/null
+
 ################# BROADCAST RECEIVERS
 
 echo -e "$OKRED Searching for sendBroadcast References..."
@@ -131,7 +144,7 @@ for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'sendBroadcast' $a -
 
 echo -e "$OKRED Searching for Service References..."
 echo -e "$OKRED=====================================================================$RESET"
-for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'Service' $a --color=auto 2>/dev/null; done;
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'stopService|startService' $a --color=auto 2>/dev/null; done;
 
 ################# FILE REFERENCES
 
@@ -174,6 +187,11 @@ for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'Hex|hex\.' $a --col
 echo -e "$OKRED Searching for hardcoded secrets..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -inH 'secret|password|username' $a --color=auto 2>/dev/null; done;
+
+echo -e "$OKRED Grepping out interesting strings..."
+echo -e "$OKRED=====================================================================$RESET"
+#strings $PWD/$1 | egrep -i 'user|pass|key|login|pwd|log' --color=auto  2>/dev/null
+strings $PWD/$1 > $PWD/$1-strings.txt
 
 ################# URL VULNERABILITIES
 
