@@ -57,39 +57,39 @@ echo -e "$OKRED Displaying AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 cat $PWD/$1-unpacked/AndroidManifest.xml
 
-echo -e "$OKRED Displaying Package Info In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Package Info in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'package=' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Activities In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Activities in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'activity ' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Services In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Services in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'service ' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Content Providers In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Content Providers in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'provider' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Broadcast Receivers In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Broadcast Receivers in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'receiver' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Intent Filter Actions In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Intent Filter Actions in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'action|category' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Permissions In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Permissions in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'android.permission' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Exports In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Exports in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'exported="true"' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
-echo -e "$OKRED Displaying Backups In AndroidManifest.xml..."
+echo -e "$OKRED Displaying Backups in AndroidManifest.xml..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -i 'backup' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
@@ -100,13 +100,13 @@ egrep -i 'backup' $PWD/$1-unpacked/AndroidManifest.xml --color=auto 2>/dev/null
 
 ################## DEVICE INFO
 
-echo -e "$OKRED Searching for DeviceId References..."
+echo -e "$OKRED Searching for DeviceId references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'getDeviceId' $a --color=auto 2>/dev/null; done;
 
 ################## INTENT REFERENCES
 
-echo -e "$OKRED Searching for android.intent References..."
+echo -e "$OKRED Searching for android.intent references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'android\.intent' $a --color=auto 2>/dev/null; done;
 
@@ -124,7 +124,7 @@ for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'SQLiteDatabase' $a 
 
 ################# LOGGING REFERENCES
 
-echo -e "$OKRED Searching for Log.d References..."
+echo -e "$OKRED Searching for Log.d references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'log\.d|Log\.' $a --color=auto 2>/dev/null; done;
 
@@ -133,52 +133,53 @@ for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'log\.d|Log\.' $a --
 echo -e "$OKRED Displaying content providers..."
 echo -e "$OKRED=====================================================================$RESET"
 egrep -nH 'content://' -R $PWD/$1* --color=auto 2>/dev/null
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH '://' $a --color=auto 2>/dev/null; done;
 
 ################# BROADCAST RECEIVERS
 
-echo -e "$OKRED Searching for sendBroadcast References..."
+echo -e "$OKRED Searching for sendBroadcast references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'sendBroadcast' $a --color=auto 2>/dev/null; done;
 
 ################# SERVICE REFERENCES
 
-echo -e "$OKRED Searching for Service References..."
+echo -e "$OKRED Searching for Service references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'stopService|startService' $a --color=auto 2>/dev/null; done;
 
 ################# FILE REFERENCES
 
-echo -e "$OKRED Searching for file:// References..."
+echo -e "$OKRED Searching for file:// references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'file://' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for getSharedPreferences References..."
+echo -e "$OKRED Searching for getSharedPreferences references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH getSharedPreferences $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for getExternalStorageDirectory References..."
+echo -e "$OKRED Searching for getExternal references..."
 echo -e "$OKRED=====================================================================$RESET"
-for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -iH getExternalStorageDirectory $a --color=auto 2>/dev/null; done;
+for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -iH getExternal $a --color=auto 2>/dev/null; done;
 
 ################# CRYPTO REFERENCES
 
-echo -e "$OKRED Searching for Crpto References..."
+echo -e "$OKRED Searching for Crpto references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'crypto\.' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for MessageDigest References..."
+echo -e "$OKRED Searching for MessageDigest references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'MessageDigest' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for java.util.Random References..."
+echo -e "$OKRED Searching for java.util.Random references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'java\.util\.Random' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for Base64 References..."
+echo -e "$OKRED Searching for Base64 references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'Base64' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for Hex References..."
+echo -e "$OKRED Searching for Hex references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'Hex|hex\.' $a --color=auto 2>/dev/null; done;
 
@@ -188,7 +189,7 @@ echo -e "$OKRED Searching for hardcoded secrets..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -inH 'secret|password|username' $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Grepping out interesting strings..."
+echo -e "$OKRED Searching for sensitive information..."
 echo -e "$OKRED=====================================================================$RESET"
 #strings $PWD/$1 | egrep -i 'user|pass|key|login|pwd|log' --color=auto  2>/dev/null
 strings $PWD/$1 > $PWD/$1-strings.txt
@@ -213,25 +214,25 @@ echo -e "$OKRED Searching for client certificates..."
 echo -e "$OKRED=====================================================================$RESET"
 find $PWD/$1-unzipped/ | egrep '\.pkcs|\.p12|\.cer|\.der' --color=auto 2>/dev/null
 
-echo -e "$OKRED Searching for SSL Certificate Pinning..."
+echo -e "$OKRED Searching for SSL certificate pinning..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH getCertificatePinningSSL $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for SSL Connections..."
+echo -e "$OKRED Searching for SSL connections..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH 'ssl\.SSL' $a --color=auto 2>/dev/null; done;
 
 ################# WEBVIEW REFERENCES
 
-echo -e "$OKRED Searching for WebView Activity..."
+echo -e "$OKRED Searching for WebView activity..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH WebView $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for addJavascriptInterface References..."
+echo -e "$OKRED Searching for addJavascriptInterface references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH addJavascriptInterface $a --color=auto 2>/dev/null; done;
 
-echo -e "$OKRED Searching for setJavaScriptEnabled References..."
+echo -e "$OKRED Searching for setJavaScriptEnabled references..."
 echo -e "$OKRED=====================================================================$RESET"
 for a in `find $PWD/$1-jadx | egrep -i .java`; do egrep -nH setJavaScriptEnabled $a --color=auto 2>/dev/null; done;
 
