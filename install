@@ -29,8 +29,11 @@ echo -e "$RESET"
 
 echo -e "$OKRED Installing reverse-apk..."
 echo -e "========================================================= $RESET"
-apt-get install unzip smali apktool dex2jar
 chmod +rx reverse-apk
 cp reverse-apk /usr/bin/reverse-apk
-echo -e "$OKRED Done! To use, type reverse-apk <path_to_apk>.
+apt-get install unzip smali apktool dex2jar
+git clone https://github.com/skylot/jadx /usr/share/jadx
+cd /usr/share/jadx
+./gradlew dist
+echo -e "$OKRED Done! To use, type reverse-apk <path_to_apk>."
 echo -e "$OKRED ========================================================= $RESET"
