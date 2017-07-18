@@ -5,7 +5,7 @@ Credits: 1N3@CrowdShield
 
 Website: https://crowdshield.com
 
-Version: 1.0 
+Version: 1.1
 
 ## ABOUT:
 Quickly analyze and reverse engineer Android applications. 
