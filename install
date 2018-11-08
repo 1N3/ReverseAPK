@@ -35,5 +35,6 @@ apt-get install unzip smali apktool dex2jar
 git clone https://github.com/skylot/jadx /usr/share/jadx
 cd /usr/share/jadx
 ./gradlew dist
+ln -s /usr/share/jadx/jadx-cli/build/install/jadx/bin/jadx /usr/bin/jadx
 echo -e "$OKRED Done! To use, type reverse-apk <path_to_apk>."
 echo -e "$OKRED ========================================================= $RESET"
