@@ -1,11 +1,11 @@
 ![alt tag](https://github.com/1N3/ReverseAPK/blob/master/logo.png)
 
 # ReverseAPK
-Credits: 1N3@CrowdShield
+Credits: @xer0dayz
 
-Website: https://crowdshield.com
+Website: https://xerosecurity.com
 
-Version: 1.1
+Version: 1.2
 
 ## ABOUT:
 Quickly analyze and reverse engineer Android applications. 
@@ -42,11 +42,4 @@ reverse-apk <apk_name>
 ```
 
 ## LICENSE:
-This software is free to distribute, modify and use with the condition that credit is provided to the creator (1N3@CrowdShield) and is not for commercial use.
-
-## DONATIONS:
-Donations are welcome. This will help fascilitate improved features, frequent updates and better overall support.
-- [x] BTC 1Fav36btfmdrYpCAR65XjKHhxuJJwFyKum
-- [x] DASH XoWYdMDGb7UZmzuLviQYtUGb5MNXSkqvXG
-- [x] ETH 0x20bB09273702eaBDFbEE9809473Fd04b969a794d
-- [x] LTC LQ6mPewec3xeLBYMdRP4yzeta6b9urqs2f
+Sn1per Community Edition is free to distribute, modify and use with the condition that credit is provided to the creator (@xer0dayz) and @XeroSecurity and is not for commercial use. For professional use, a Sn1per Professional or Enterprise license must be purchased at https://xerosecurity.com.
