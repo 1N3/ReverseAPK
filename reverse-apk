@@ -44,7 +44,7 @@ d2j-dex2jar $PWD/$1 -o $PWD/$1.jar --force
 
 echo -e "$OKRED Decompiling using Jadx..."
 echo -e "$OKRED=====================================================================$RESET"
-jadx $PWD/$1 -d $PWD/$1-jadx/ > /dev/null
+jadx $PWD/$1 -j $(grep -c ^processor /proc/cpuinfo) -d $PWD/$1-jadx/ > /dev/null
 
 echo -e "$OKRED Unpacking using APKTool..."
 echo -e "$OKRED=====================================================================$RESET"

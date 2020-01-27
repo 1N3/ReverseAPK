@@ -1,6 +1,7 @@
 #!/bin/bash
-# reverse-apk by @xer0dayz
-# https://xerosecurity.com
+#
+# reverse-apk by 1N3CrowdShield
+# https://crowdshield.com 
 #
 # Install script for reverse-apk...
 #
@@ -20,8 +21,8 @@ echo -e " |____|_  /\___  >\_/  \___  >__|  /____  >\___  >"
 echo -e "        \/     \/          \/           \/     \/ "
 echo -e "                                           _____ __________ ____  __."
 echo -e "                                          /  _  \\\\______   \    |/ _|"
-echo -e "      --=[( by @xer0dayz )]=--           /  /_\  \|     ___/      <  "
-echo -e "   --=[( https://xerosecurity.com )]=-- /    |    \    |   |    |  \ "
+echo -e "      --=[( by 1N3@CrowdShield )]=--     /  /_\  \|     ___/      <  "
+echo -e "   --=[( https://crowdshield.com )]=--  /    |    \    |   |    |  \ "
 echo -e "                                        \____|__  /____|   |____|__ \\"
 echo -e "                                                \/                 \/"
 echo -e "$RESET"
@@ -30,6 +31,9 @@ echo -e "$OKRED Installing reverse-apk..."
 echo -e "========================================================= $RESET"
 chmod +rx reverse-apk
 cp reverse-apk /usr/bin/reverse-apk
-apt-get install unzip smali apktool dex2jar jadx
+apt-get install unzip smali apktool dex2jar
+git clone https://github.com/skylot/jadx /usr/share/jadx
+cd /usr/share/jadx
+./gradlew dist
 echo -e "$OKRED Done! To use, type reverse-apk <path_to_apk>."
 echo -e "$OKRED ========================================================= $RESET"
