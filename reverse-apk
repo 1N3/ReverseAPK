@@ -33,6 +33,24 @@ echo -e "                                        \____|__  /____|   |____|__ \\"
 echo -e "                                                \/                 \/"
 echo -e "$RESET"
 
+# Handling argument error
+if [ -z "$1" ];then
+  echo -en "$OKRED Usage:$RESET ./reverse-apk <path_to_apk>\n"
+  exit 1
+fi
+
+# Dependency checker
+deps=("unzip" "smali" "apktool" "d2j-dex2jar" "jadx")
+for dep in ${deps[@]}
+do
+  which $dep &>/dev/null
+  if [ $? != 0 ];then
+    echo -en "Command: $dep not found.\n"
+    echo -en "Use $OKGREEN./install$RESET to install dependencies.\n"
+    exit 1
+  fi
+done
+
 echo -e "$OKRED Unpacking APK file..."
 echo -e "$OKRED=====================================================================$RESET"
 unzip $PWD/$1 -d $PWD/$1-unzipped/ 
