@@ -3,7 +3,7 @@
 # ReverseAPK
 Credits: @xer0dayz
 
-Website: https://xerosecurity.com
+Website: https://sn1persecurity.com
 
 Version: 1.2
 
@@ -42,4 +42,4 @@ reverse-apk <apk_name>
 ```
 
 ## LICENSE:
-Sn1per Community Edition is free to distribute, modify and use with the condition that credit is provided to the creator (@xer0dayz) and @XeroSecurity and is not for commercial use. For professional use, a Sn1per Professional or Enterprise license must be purchased at https://xerosecurity.com.
+Sn1per Community Edition is free to distribute, modify and use with the condition that credit is provided to the creator (@xer0dayz) and @Sn1perSecurity and is not for commercial use. For professional use, a Sn1per Professional or Enterprise license must be purchased at https://sn1persecurity.com.

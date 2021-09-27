@@ -1,6 +1,6 @@
 #!/bin/bash
 # reverse-apk by @xer0dayz
-# https://xerosecurity.com
+# https://sn1persecurity.com
 #
 # Install script for reverse-apk...
 #
@@ -21,7 +21,7 @@ echo -e "        \/     \/          \/           \/     \/ "
 echo -e "                                           _____ __________ ____  __."
 echo -e "                                          /  _  \\\\______   \    |/ _|"
 echo -e "      --=[( by @xer0dayz )]=--           /  /_\  \|     ___/      <  "
-echo -e "   --=[( https://xerosecurity.com )]=-- /    |    \    |   |    |  \ "
+echo -e "   --=[( https://sn1persecurity.com )]=-- /    |    \    |   |    |  \ "
 echo -e "                                        \____|__  /____|   |____|__ \\"
 echo -e "                                                \/                 \/"
 echo -e "$RESET"

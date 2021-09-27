@@ -1,6 +1,6 @@
 #!/bin/bash
 # + -- --=[ReverseAPK v1.2 by @xer0dayz
-# + -- --=[https://xerosecurity.com
+# + -- --=[https://sn1persecurity.com
 # 
 # ABOUT: 
 # Quickly analyze and reverse engineer Android applications.
@@ -28,7 +28,7 @@ echo -e "        \/     \/          \/           \/     \/ "
 echo -e "                                           _____ __________ ____  __."
 echo -e "                                          /  _  \\\\______   \    |/ _|"
 echo -e "      --=[( by @xer0dayz )]=--           /  /_\  \|     ___/      <  "
-echo -e "   --=[( https://xerosecurity.com )]=-- /    |    \    |   |    |  \ "
+echo -e "   --=[( https://sn1persecurity.com )]=-- /    |    \    |   |    |  \ "
 echo -e "                                        \____|__  /____|   |____|__ \\"
 echo -e "                                                \/                 \/"
 echo -e "$RESET"
