@@ -32,13 +32,28 @@ Quickly analyze and reverse engineer Android applications.
     * WebView references
 
 ## INSTALL:
+
+**Linux/macOS:**
 ```
 ./install
 ```
 
+**Windows (PowerShell — run as Administrator):**
+```
+.\install.ps1
+```
+
 ## USAGE:
+
+**Linux/macOS:**
 ```
 reverse-apk <apk_name>
+```
+
+**Windows:**
+```
+.\reverse-apk.ps1 <apk_name>
+reverse-apk <apk_name>   # after running install.ps1
 ```
 
 ## LICENSE:
